@@ -17,7 +17,7 @@
 #include "adaqrcode.h"
 
 // Here's the new syntax when using SoftwareSerial (e.g. Arduino Uno) ----
-// If using hardware serial instead, comment out or remove these lines:
+// If using hardware serial instead, comment out or remove these lines:-
 
 // #include "SoftwareSerial.h"
 // #define TX_PIN 17 // Arduino transmit  YELLOW WIRE  labeled RX on printer
@@ -44,18 +44,19 @@ void setup() {
   M5.begin(true, false, false);
   // NOTE: SOME PRINTERS NEED 9600 BAUD instead of 19200, check test page.
   // Serial2.begin(unsigned long baud, uint32_t config, int8_t rxPin, int8_t txPin, bool invert)
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.flush();
   delay(50);
   //Serial1.begin(19200); // Use this instead if using hardware serial
   // printer.setCharset(CHARSET_JAPAN);
+  printer.enableRtsCts();
   printer.setDefault(); // Restore printer to defaults
-  printer.begin();        // Init printer (same regardless of serial type)
+  printer.begin(30);        // Init printer (same regardless of serial type)
 
 
   delay(1000);
   M5.Lcd.println("printing hoge:");
-  printer.println("ほげほげ");
+  // printer.println("ほげほげ");
   // The following calls are in setup(), but don't *need* to be.  Use them
   // anywhere!  They're just here so they run one time and are not printed
   // over and over (which would happen if they were in loop() instead).
